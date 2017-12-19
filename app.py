@@ -10,7 +10,7 @@ with fileinput.input("secrets-which-should-not-be-in-an-unsecured-text-file-like
 	secrets["password"] = file.readline()[:-1]
 	secrets["smtpServer"] = file.readline()[:-1]
 	secrets["smtpPort"] = file.readline()
-	print(secrets)
+	#print(secrets)
 
 def days_until(exp_date):
 	e = exp_date.rstrip().split("/")
@@ -21,21 +21,20 @@ def days_until(exp_date):
 def send(fields):
 	string = "Dear" + fields[2][:-1] + " " + fields[1][1:] + ",\n\nYour library card will expire on " + fields[4] + "."
 	string += "\n\nClick here for instruction on how to renew it.\n\nSincerely,\n\nChapel Hill Public Library"
-	print(string)
-	# Import the email modules we'll need
+	#print(string)
 	msg = MIMEText(string)
-	# me == the sender's email address
-	# you == the recipient's email address
 	msg['Subject'] = "Library Card Expiration"
 	msg['From'] = secrets["senderUsername"]
 	msg['To'] = fields[-1]
 	# Send the message via SMTP server.
-	# s = smtplib.SMTP(secrets["smtpServer"], secrets["smtpPort"])
-	# s.ehlo()
-	# s.starttls()
-	# s.login(secrets["senderUsername"], secrets["password"])
-	# s.sendmail(msg['From'], msg['To'], msg)
-	# s.quit()
+	s = smtplib.SMTP_SSL(secrets["smtpServer"], secrets["smtpPort"])
+	s.ehlo()
+	s.login(secrets["senderUsername"], secrets["password"])
+	print("Email sent.")
+	import time 
+	time.sleep(.5)
+	s.sendmail(msg['From'], msg['To'], msg)
+	s.quit()
 	
 
 with fileinput.input('PatronsExampleTest.csv', inplace = False) as file:

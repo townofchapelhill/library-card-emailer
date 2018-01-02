@@ -69,4 +69,4 @@ try:
 				row.append(str(date.today().month) + "/" + str(date.today().day) + "/" + str(date.today().year))
 				log(row)
 except Exception as e:
-    log([traceback.format_exc()])
+    log([e.__class__.__name__, traceback.format_exc().replace("\n", "| ")])

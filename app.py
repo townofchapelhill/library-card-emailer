@@ -3,17 +3,12 @@ import smtplib
 import datetime
 import email
 import csv
+import traceback
 from datetime import date
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 secrets = {}
-
-with fileinput.input("secrets-which-should-not-be-in-an-unsecured-text-file-like-this.txt", inplace = False) as file:
-	secrets["senderUsername"] = file.readline()[:-1]
-	secrets["password"] = file.readline()[:-1]
-	secrets["smtpServer"] = file.readline()[:-1]
-	secrets["smtpPort"] = file.readline()
 
 def days_until(exp_date):
 	e = exp_date.rstrip().split("/")
@@ -52,9 +47,26 @@ def send(fields):
 	s.sendmail(msg['From'], msg['To'], msg.as_string())
 	s.quit()
 	
-with fileinput.FileInput('testdata.csv') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-	next(reader)
-	for row in reader:
-		if days_until(row[3]) == 30:
-			send(row)
+def log(row):
+	with open('log.csv', 'a') as csvfile:
+		writer = csv.writer(csvfile, delimiter=',', quotechar='"')
+		writer.writerow(row)
+	
+try:
+	with fileinput.input("secrets-which-should-not-be-in-an-unsecured-text-file-like-this.txt", inplace = False) as file:
+		secrets["senderUsername"] = file.readline()[:-1]
+		secrets["password"] = file.readline()[:-1]
+		secrets["smtpServer"] = file.readline()[:-1]
+		secrets["smtpPort"] = file.readline()
+	
+	with fileinput.FileInput('testdata.csv') as csvfile:
+		reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+		next(reader)
+		for row in reader:
+			if days_until(row[3]) == 30:
+				send(row)
+				# Outputs the sent address's CSV row into the log.
+				row.append(str(date.today().month) + "/" + str(date.today().day) + "/" + str(date.today().year))
+				log(row)
+except Exception as e:
+    log([traceback.format_exc()])

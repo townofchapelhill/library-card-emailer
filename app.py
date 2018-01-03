@@ -48,7 +48,7 @@ def send(fields):
 	s.quit()
 	
 def log(row):
-	with open('log.csv', 'a') as csvfile:
+	with open('logs/log.csv', 'a') as csvfile:
 		writer = csv.writer(csvfile, delimiter=',', quotechar='"')
 		writer.writerow(row)
 	
@@ -59,7 +59,7 @@ try:
 		secrets["smtpServer"] = file.readline()[:-1]
 		secrets["smtpPort"] = file.readline()
 	
-	with fileinput.FileInput('testdata.csv') as csvfile:
+	with fileinput.FileInput('active_patrons.csv') as csvfile:
 		reader = csv.reader(csvfile, delimiter=',', quotechar='"')
 		next(reader)
 		for row in reader:

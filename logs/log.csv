@@ -1,8 +1,1 @@
 ID,Patron Name,Date Joined,Expiration Date,Barcodes,Emails,Date Processed
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018
-IndexError,"Traceback (most recent call last):|   File ""/home/ubuntu/workspace/ex50/bin/app.py"", line 66, in <module>|     if days_until(row[3]) == 30:|   File ""/home/ubuntu/workspace/ex50/bin/app.py"", line 15, in days_until|     eDate = date(int(e[2]), int(e[0]), int(e[1]))| IndexError: list index out of range| "
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018
-128504,"SMITH, Benjamin",4/19/2018,2/2/2018,['25064000373230'],elizachary99@gmail.com,1/3/2018

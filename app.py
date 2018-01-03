@@ -53,7 +53,7 @@ def log(row):
 		writer.writerow(row)
 	
 try:
-	with fileinput.input("secrets-which-should-not-be-in-an-unsecured-text-file-like-this.txt", inplace = False) as file:
+	with fileinput.input("secrets.txt", inplace = False) as file:
 		secrets["senderUsername"] = file.readline()[:-1]
 		secrets["password"] = file.readline()[:-1]
 		secrets["smtpServer"] = file.readline()[:-1]

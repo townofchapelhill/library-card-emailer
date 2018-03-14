@@ -25,10 +25,10 @@ def getTextBody(fileName):
 	
 def send(fields):
 	html = "<html><head><body><img src=\"https://cor-liv-cdn-static.bibliocommons.com/images/NC-CHAPELHILL/logo.png?1513759594701\">"
+	html += getTextBody("html.html")
 	html += "<p><strong>100 Library Drive</strong></p><p><strong>Chapel Hill, NC&nbsp; 27514</strong></p><p><strong>(919) 968-2777</strong></p><br>"
 	html += "<p><strong>" + fields[1] + "</p></strong>"
 	html += "<p><strong>" + fields[-1].split(",")[0][0:] + "</p></strong>"
-	html += getTextBody("html.html")
 	html += "<p><strong>NAME: " + fields[1] + "</p></strong>"
 	html += "<p><strong>LIBRARY CARD NUMBER: " + fields[4][2:16] + "</strong></p>"
 	html += "<p><strong>RENEWAL DATE: " + fields[3] + "</strong></p>"
